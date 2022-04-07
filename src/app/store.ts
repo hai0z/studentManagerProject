@@ -1,10 +1,10 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import signinReducer from "../screens/all/signin/redux/signinSlice";
 export const store = configureStore({
   reducer: {
+    signin: signinReducer,
   },
 });
-
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
