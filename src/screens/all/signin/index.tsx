@@ -5,10 +5,16 @@ import { RootState } from "../../../app/store";
 import { SignInComponent } from "../../../components";
 import { users } from "../../../utils/constants";
 import { setPath, setUser, setUserRole } from "../../../utils/localStorage";
-import { signinFail, signinSuccess } from "./redux/signinSlice";
+import {
+  getAdminSignin,
+  getStudentSignin,
+  getTeacherSignin,
+} from "./redux/signinSlice";
 
 const DEFAULT_VALUE = {
-  emailAddress: "",
+  maHs: "",
+  maGiaoVien: "",
+  username: "",
   password: "",
 };
 const SignInScreen = () => {
@@ -17,24 +23,33 @@ const SignInScreen = () => {
 
   const { error, isSuccess } = useSelector((state: RootState) => state.signin);
   const [value, setValue] = useState(DEFAULT_VALUE);
+  const [page, setPage] = useState("1");
+
+  const handleChangePage = (event: React.SyntheticEvent, newValue: string) => {
+    setPage(newValue);
+  };
   const onUpdateValue = (key: string, updateValue: string) => {
     setValue({ ...value, [key]: updateValue });
   };
-  const onSubmit = () => {
-    let counter = users.length;
-    users.forEach((user) => {
-      if (
-        value.emailAddress === user.emailAddress &&
-        value.password === user.password
-      ) {
-        dispatch(signinSuccess(user));
-      } else {
-        counter--;
-      }
-    });
-    if (counter === 0) {
-      dispatch(signinFail());
-    }
+
+  const onSubmitStudent = async () => {
+    //call API
+    dispatch(getStudentSignin({ maHs: value.maHs, password: value.password }));
+  };
+  const onSubmitTeacher = async () => {
+    //call API
+    dispatch(
+      getTeacherSignin({
+        maGiaoVien: value.maGiaoVien,
+        password: value.password,
+      })
+    );
+  };
+  const onSubmitAdmin = async () => {
+    //call API
+    dispatch(
+      getAdminSignin({ username: value.username, password: value.password })
+    );
   };
   useEffect(() => {
     if (isSuccess) {
@@ -46,8 +61,12 @@ const SignInScreen = () => {
   return (
     <SignInComponent
       error={error}
+      page={page}
       onUpdateValue={onUpdateValue}
-      onSubmit={onSubmit}
+      handleChangePage={handleChangePage}
+      onSubmitStudent={onSubmitStudent}
+      onSubmitTeacher={onSubmitTeacher}
+      onSubmitAdmin={onSubmitAdmin}
     />
   );
 };

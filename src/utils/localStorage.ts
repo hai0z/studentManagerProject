@@ -6,7 +6,7 @@ export const removeToken = () => {
   return localStorage.removeItem("token");
 };
 
-export const getUserAcess = () => {
+export const getUser = () => {
   return JSON.parse(localStorage.getItem("user") || "null");
 };
 export const getUserRole = () => {
