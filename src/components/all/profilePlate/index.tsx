@@ -23,10 +23,13 @@ export const ProfilePlateComponent = () => {
       </Box>
       <Box className="profilePlateContent">
         <Box className="profileImageContainer">
-          <img src={userDetail?.img === "" ? profile : userDetail?.img} />
+          <img
+            width="160px"
+            src={userDetail?.img === "" ? profile : userDetail?.img}
+          />
         </Box>
         {
-          <Box className="profileDetailContainer">
+          <Box className="profilePlateDetailContainer">
             <Box className="profilePlateDetailTittle">
               <Typography>ID:</Typography>
               <Typography>Name:</Typography>

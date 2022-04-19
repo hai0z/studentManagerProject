@@ -172,7 +172,7 @@ export const Navbar = ({ children }: any) => {
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
-            padding: 1,
+            padding: 2,
           }}
         >
           <Toolbar />

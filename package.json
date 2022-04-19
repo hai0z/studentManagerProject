@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/moment": "^2.13.1",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.8",
@@ -21,6 +22,7 @@
     "@types/react-redux": "^7.1.23",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^0.26.1",
+    "moment": "^2.29.3",
     "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-charts": "^3.0.0-beta.36",

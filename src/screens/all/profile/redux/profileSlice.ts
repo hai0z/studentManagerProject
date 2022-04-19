@@ -6,8 +6,9 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import { RootState } from "../../../../app/store";
-import { setUser, setUserRole } from "../../../../utils/localStorage";
+import { getUser, setUser, setUserRole } from "../../../../utils/localStorage";
 import baseURL from "../../../../api/api";
+import { useDispatch } from "react-redux";
 
 type profileState = {
   userDetail: any;
@@ -21,6 +22,14 @@ export const getStudentUser = createAsyncThunk(
   "users/getStudentUser",
   async (id: string) => {
     const respond = await baseURL.get(`api/student/${id}`);
+    return respond.data;
+  }
+);
+export const updateStudentUser = createAsyncThunk(
+  "users/updateStudentUser",
+  async ({ id, data }: any) => {
+    console.log("api: ", data);
+    const respond = await baseURL.put(`api/student/${id}`, data);
     return respond.data;
   }
 );
@@ -40,6 +49,12 @@ export const profileSlice = createSlice({
         state.userDetail = {};
         state.userClass = {};
         toast.error("Get user fail", { autoClose: 2000 });
+      })
+      .addCase(updateStudentUser.fulfilled, (state) => {
+        toast.success("Update success", { autoClose: 2000 });
+      })
+      .addCase(updateStudentUser.rejected, (state) => {
+        toast.error("Update fail", { autoClose: 2000 });
       });
   },
 });
