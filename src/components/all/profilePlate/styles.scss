@@ -1,0 +1,33 @@
+.profilePlateContainer{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0px 0px 0px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.profilePlateHeader{
+    text-align: start;
+    margin-left: 10px;
+}
+.profilePlateContent{
+    display: flex;
+    flex-direction: row;
+}
+.profileImageContainer{
+    display: flex;
+    width: 180px;
+    height: 180px;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+    img {
+        border-radius: 100px;
+    }
+}
+.profileDetailContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: start;
+    width: calc(90% - 180px)
+}

@@ -172,12 +172,12 @@ export const Navbar = ({ children }: any) => {
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
+            padding: 1,
           }}
         >
           <Toolbar />
-          <Container maxWidth="xl" sx={{ mt: 1, mb: 1 }}>
-            {children}
-          </Container>
+
+          {children}
         </Box>
       </Box>
     </ThemeProvider>
