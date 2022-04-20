@@ -1,7 +1,6 @@
 import { SelectChangeEvent } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { string } from "yup";
 import { RootState } from "../../../app/store";
 import { HomeStudentComponent } from "../../../components";
 import { getUser } from "../../../utils/localStorage";

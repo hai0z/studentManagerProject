@@ -75,7 +75,6 @@ export const signinSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getStudentSignin.fulfilled, (state, action) => {
-        console.log(action);
         state.userRole = action.payload.role;
         state.error = false;
         state.isSuccess = true;
@@ -92,7 +91,6 @@ export const signinSlice = createSlice({
       });
     builder
       .addCase(getTeacherSignin.fulfilled, (state, action) => {
-        console.log(action);
         state.userRole = action.payload.role;
         state.error = false;
         state.isSuccess = true;
@@ -109,7 +107,6 @@ export const signinSlice = createSlice({
       });
     builder
       .addCase(getAdminSignin.fulfilled, (state, action) => {
-        console.log(action);
         state.userRole = action.payload.role;
         state.error = false;
         state.isSuccess = true;

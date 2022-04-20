@@ -1,21 +1,22 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import { getStudentUser } from "../../../screens/all/profile/redux/profileSlice";
-import { getUser } from "../../../utils/localStorage";
+import { getUser, getUserRole } from "../../../utils/localStorage";
 import "./styles.scss";
 import profile from "../../../assets/profile.png";
 export const ProfilePlateComponent = () => {
   const { userDetail, userClass } = useSelector(
     (state: RootState) => state.profile
   );
+  const [role, setRole] = useState("");
   const dispatch = useDispatch();
-  const userId = getUser();
   useEffect(() => {
+    const userId = getUser();
+    setRole(getUserRole());
     dispatch(getStudentUser(userId));
   }, []);
-  console.log(userClass);
   return (
     <Box className="profilePlateContainer">
       <Box className="profilePlateHeader">
@@ -28,7 +29,7 @@ export const ProfilePlateComponent = () => {
             src={userDetail?.img === "" ? profile : userDetail?.img}
           />
         </Box>
-        {userId === "ROLE_STUDENT" && (
+        {role === "ROLE_STUDENT" && (
           <Box className="profilePlateDetailContainer">
             <Box className="profilePlateDetailTittle">
               <Typography>ID:</Typography>

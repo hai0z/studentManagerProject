@@ -26,9 +26,9 @@ import { getPath, getUserRole } from "../utils/localStorage";
 
 const Routes = () => {
   const { isSuccess } = useSelector((state: RootState) => state.signin);
-  const [userRole, setUserRole] = useState(getUserRole());
   const [path, setPath] = useState(getPath());
   const location = useLocation();
+  const [userRole, setUserRole] = useState(getUserRole());
   useEffect(() => {
     setUserRole(getUserRole());
     setPath(getPath());
@@ -68,23 +68,15 @@ const Routes = () => {
             <Route path="/home" key="home">
               <HomeTeacherScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/classList" key="classList">
               <ClassListScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/conduct" key="conduct">
               <ConductScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/schedule" key="schedule">
               <TeacherScheduleScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/scoreModify" key="scoreModify">
               <ScoreModifyScreen />
             </Route>
@@ -97,23 +89,15 @@ const Routes = () => {
             <Route path="/home" key="home">
               <HomeAdminScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/classManager" key="classManager">
               <ClassManagerScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/scheduleManager" key="scheduleManager">
               <ScheduleManagerScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/scoreManager" key="scoreManager">
               <ScoreManagerScreen />
             </Route>
-          </Navbar>
-          <Navbar>
             <Route path="/usersManager" key="usersManager">
               <UserManagerScreen />
             </Route>

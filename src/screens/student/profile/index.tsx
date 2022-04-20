@@ -7,6 +7,7 @@ import { getUser } from "../../../utils/localStorage";
 import {
   getStudentUser,
   updateStudentUser,
+  updateStudentUserPassword,
 } from "../../all/profile/redux/profileSlice";
 
 const ProfileStudentScreen = () => {
@@ -14,8 +15,16 @@ const ProfileStudentScreen = () => {
     (state: RootState) => state.profile
   );
   const [isEdit, setIsEdit] = useState(false);
+  const [isEditPassword, setIsEditPassword] = useState(false);
   const [value, setValue] = useState<any>();
   const [valueClass, setValueClass] = useState<any>();
+  const [password, setPassword] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();
   const userId = getUser();
   useEffect(() => {
@@ -35,13 +44,51 @@ const ProfileStudentScreen = () => {
     dispatch(updateStudentUser({ id: userId, data: newValue }));
     window.location.reload();
   };
+  const handleOnSubmitPasswordChange = () => {
+    let count = 0;
+    if (password.newPassword !== password.confirmPassword) {
+      count++;
+    }
+    if (password.currentPassword === password.newPassword) {
+      count++;
+    }
+    if (
+      password.newPassword === "" ||
+      password.confirmPassword === "" ||
+      password.currentPassword === ""
+    ) {
+      count++;
+    }
+    if (count === 0) {
+      console.log({
+        oldPassword: password.currentPassword,
+        newPassword: password.newPassword,
+      });
+      dispatch(
+        updateStudentUserPassword({
+          id: userId,
+          data: {
+            oldPassword: password.currentPassword,
+            newPassword: password.newPassword,
+          },
+        })
+      );
+      setIsError(false);
+    } else {
+      setIsError(true);
+    }
+  };
   const handleOnCancle = () => {
     setValue(userClass);
     setValueClass(userClass);
-    setIsEdit(!isEdit);
+    setIsEdit(false);
+    setIsEditPassword(false);
   };
   const onUpdateValue = (key: string, updateValue: string | Date | null) => {
     setValue({ ...value, [key]: updateValue });
+  };
+  const onUpdatePassword = (key: string, updateValue: string) => {
+    setPassword({ ...password, [key]: updateValue });
   };
   const onUpdateValueClass = (key: string, updateValue: string) => {
     setValueClass({ ...valueClass, [key]: updateValue });
@@ -58,6 +105,12 @@ const ProfileStudentScreen = () => {
       valueClass={valueClass}
       onUpdateValueClass={onUpdateValueClass}
       handleOnCancle={handleOnCancle}
+      isEditPassword={isEditPassword}
+      setIsEditPassword={setIsEditPassword}
+      password={password}
+      onUpdatePassword={onUpdatePassword}
+      isError={isError}
+      handleOnSubmitPasswordChange={handleOnSubmitPasswordChange}
     />
   );
 };

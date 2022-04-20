@@ -28,12 +28,21 @@ export const getStudentUser = createAsyncThunk(
 export const updateStudentUser = createAsyncThunk(
   "users/updateStudentUser",
   async ({ id, data }: any) => {
-    console.log("api: ", data);
     const respond = await baseURL.put(`api/student/${id}`, data);
     return respond.data;
   }
 );
-
+export const updateStudentUserPassword = createAsyncThunk(
+  "users/updateStudentUserPassword",
+  async ({ id, data }: any) => {
+    console.log(data);
+    const respond = await baseURL.put(
+      `api/student/change-password/${id}`,
+      data
+    );
+    return respond.data;
+  }
+);
 export const profileSlice = createSlice({
   name: "user",
   initialState,
@@ -55,6 +64,12 @@ export const profileSlice = createSlice({
       })
       .addCase(updateStudentUser.rejected, (state) => {
         toast.error("Update fail", { autoClose: 2000 });
+      })
+      .addCase(updateStudentUserPassword.fulfilled, (state) => {
+        toast.success("Update password success", { autoClose: 2000 });
+      })
+      .addCase(updateStudentUserPassword.rejected, (state) => {
+        toast.error("Update password fail", { autoClose: 2000 });
       });
   },
 });
