@@ -11,8 +11,8 @@ export const ProfilePlateComponent = () => {
     (state: RootState) => state.profile
   );
   const dispatch = useDispatch();
+  const userId = getUser();
   useEffect(() => {
-    const userId = getUser();
     dispatch(getStudentUser(userId));
   }, []);
   console.log(userClass);
@@ -28,7 +28,7 @@ export const ProfilePlateComponent = () => {
             src={userDetail?.img === "" ? profile : userDetail?.img}
           />
         </Box>
-        {
+        {userId === "ROLE_STUDENT" && (
           <Box className="profilePlateDetailContainer">
             <Box className="profilePlateDetailTittle">
               <Typography>ID:</Typography>
@@ -49,7 +49,7 @@ export const ProfilePlateComponent = () => {
               <Typography>{userClass?.nienKhoa}</Typography>
             </Box>
           </Box>
-        }
+        )}
       </Box>
     </Box>
   );

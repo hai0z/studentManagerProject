@@ -20,7 +20,7 @@
     width: 45%;
     height: 100%;
     min-width: 100px;
-    padding: 5px;
+    padding: 0px 10px 0px 10px;
     background-image: url(../../../assets/signin-left-bg.jpg);
     border-radius: 20px 0px 0px 20px;
     display: flex;
@@ -38,6 +38,7 @@
 .signinRight {
     width: 55%;
     min-width: 400px;
+    height: 100%;
     display: flex;
     justify-content: space-around;
     flex-direction: column;

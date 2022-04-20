@@ -23,7 +23,7 @@ import { useState } from "react";
 import { AppBar, Drawer } from "./style";
 import HomeIcon from "@mui/icons-material/Home";
 import { useHistory, useLocation } from "react-router-dom";
-import { setPath } from "../../../utils/localStorage";
+import { getUserRole, setPath } from "../../../utils/localStorage";
 import { useDispatch } from "react-redux";
 import { signoutSuccess } from "../../../screens/all/signin/redux/signinSlice";
 
@@ -35,6 +35,7 @@ export const Navbar = ({ children }: any) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
+  const userRoll = getUserRole();
   const getPageName = () => {
     let name = location.pathname.substring(1);
     return name.charAt(0).toUpperCase() + name.slice(1);
@@ -145,24 +146,75 @@ export const Navbar = ({ children }: any) => {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ListItemButton onClick={() => handleOnClick("/home")}>
-              <ListItemIcon sx={{ color: "white" }}>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText sx={{ color: "white" }} primary="Home" />
-            </ListItemButton>
-            <ListItemButton onClick={() => handleOnClick("/score")}>
-              <ListItemIcon sx={{ color: "white" }}>
-                <GroupIcon />
-              </ListItemIcon>
-              <ListItemText primary="Score" sx={{ color: "white" }} />
-            </ListItemButton>
-            <ListItemButton onClick={() => handleOnClick("/schedule")}>
-              <ListItemIcon sx={{ color: "white" }}>
-                <AccountTreeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Schedule" sx={{ color: "white" }} />
-            </ListItemButton>
+            {userRoll === "ROLE_STUDENT" && (
+              <>
+                <ListItemButton onClick={() => handleOnClick("/home")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Home" />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleOnClick("/score")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Score" sx={{ color: "white" }} />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleOnClick("/schedule")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Schedule" sx={{ color: "white" }} />
+                </ListItemButton>
+              </>
+            )}
+            {userRoll === "ROLE_TEACHER" && (
+              <>
+                <ListItemButton onClick={() => handleOnClick("/home")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Home" />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleOnClick("/classList")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Class List" />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleOnClick("/conduct")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Conduct" />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleOnClick("/schedule")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Conduct" />
+                </ListItemButton>
+                <ListItemButton onClick={() => handleOnClick("/scoreModify")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ color: "white" }}
+                    primary="Score Modify"
+                  />
+                </ListItemButton>
+              </>
+            )}
+            {userRoll === "ROLE_ADMIN" && (
+              <>
+                <ListItemButton onClick={() => handleOnClick("/home")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Home" />
+                </ListItemButton>
+              </>
+            )}
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>
