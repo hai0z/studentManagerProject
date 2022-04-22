@@ -1,18 +1,18 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../app/store";
-import { ProfileStudentComponent } from "../../../components";
-import { getUser } from "../../../utils/localStorage";
 import {
   getStudentUser,
   updateStudentUser,
   updateStudentUserPassword,
-} from "../../all/profile/redux/profileSlice";
+} from "../../../app/redux";
+import { RootState } from "../../../app/store";
+import { ProfileStudentComponent } from "../../../components";
+import { getUser, getUserRole } from "../../../utils/localStorage";
 
 const ProfileStudentScreen = () => {
   const { userDetail, userClass } = useSelector(
-    (state: RootState) => state.profile
+    (state: RootState) => state.redux
   );
   const [isEdit, setIsEdit] = useState(false);
   const [isEditPassword, setIsEditPassword] = useState(false);
@@ -28,9 +28,9 @@ const ProfileStudentScreen = () => {
   const dispatch = useDispatch();
   const userId = getUser();
   useEffect(() => {
-    dispatch(getStudentUser(userId));
     setValue(userDetail);
     setValueClass(userClass);
+    dispatch(getStudentUser(userId));
   }, []);
 
   const handleOnSubmit = () => {
@@ -60,10 +60,6 @@ const ProfileStudentScreen = () => {
       count++;
     }
     if (count === 0) {
-      console.log({
-        oldPassword: password.currentPassword,
-        newPassword: password.newPassword,
-      });
       dispatch(
         updateStudentUserPassword({
           id: userId,

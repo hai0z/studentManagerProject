@@ -25,7 +25,7 @@ import {
 import { getPath, getUserRole } from "../utils/localStorage";
 
 const Routes = () => {
-  const { isSuccess } = useSelector((state: RootState) => state.signin);
+  const { isSuccess } = useSelector((state: RootState) => state.redux);
   const [path, setPath] = useState(getPath());
   const location = useLocation();
   const [userRole, setUserRole] = useState(getUserRole());
@@ -106,7 +106,7 @@ const Routes = () => {
       )}
       <Route path="/*">
         {userRole === null ? (
-          <Redirect to="/signin" />
+          <Redirect to="/dashboard" />
         ) : (
           <Redirect to={path === null ? "/home" : path} />
         )}

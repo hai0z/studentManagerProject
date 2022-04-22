@@ -1,0 +1,18 @@
+.homeTeacherContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.homeTeacherLeftContainer{
+    width: 500px;
+
+}
+.homeTeacherRightContainer{
+    width: calc(95% - 500px);
+
+}
+.homeTeacherLeftBottomTable{
+    margin-top: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding-top: 20px;
+}
