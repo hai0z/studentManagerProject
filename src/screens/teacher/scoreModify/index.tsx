@@ -6,6 +6,7 @@ import {
   getTeacherClassList,
   getTeacherClassStudentMarksList,
   getTeacherUser,
+  updateMultiMarks,
 } from "../../../app/redux";
 import { RootState } from "../../../app/store";
 import { ScoreModifyComponent } from "../../../components";
@@ -32,10 +33,14 @@ const ScoreModifyScreen = () => {
   const [currentClass, setCurrentClass] = useState(
     teacherClassList[0]?.maLop ? teacherClassList[0]?.maLop : ""
   );
-  const [value, setValue] = useState()
+  const [value, setValue] = useState(teacherClassStudentMarksList);
   const [isEdit, setIsEdit] = useState(false);
   useEffect(() => {
-    if (currentSemester !== "" && currentClass !== "" && currentClass !== "") {
+    if (
+      currentSemester !== "" &&
+      currentClass !== "" &&
+      currentSubject !== ""
+    ) {
       dispatch(
         getTeacherClassStudentMarksList({
           subjectId: currentSubject,
@@ -44,9 +49,13 @@ const ScoreModifyScreen = () => {
         })
       );
     }
-  }, [currentSemester, currentSubject, currentClass]);
+  }, [currentSemester, currentSubject, currentClass, isEdit]);
+  useEffect(() => {
+    setValue(teacherClassStudentMarksList);
+  }, [teacherClassStudentMarksList]);
   const createData = (
     index: number,
+    maDiem: number,
     name: string,
     gioiTinh: string,
     ngaySinh: string,
@@ -62,6 +71,7 @@ const ScoreModifyScreen = () => {
   ) => {
     return {
       index,
+      maDiem,
       name,
       gioiTinh,
       ngaySinh,
@@ -81,8 +91,9 @@ const ScoreModifyScreen = () => {
     teacherClassStudentMarksList?.map((element: any, index: number) => {
       return createData(
         index + 1,
+        element.maDiem,
         element.student.hoTen,
-        element.student.gioiTinh ? "Nu" : "Nam",
+        element.student.gioiTinh ? "Nữ" : "Nam",
         element.student.ngaySinh,
         element.diemHeSo1,
         element.diemHeSo1_2,
@@ -106,6 +117,28 @@ const ScoreModifyScreen = () => {
   };
   const handleCancle = () => {
     setIsEdit(false);
+    setValue(teacherClassStudentMarksList);
+  };
+  const handleChangeValue = (
+    markId: number,
+    key: string,
+    updateValue: number
+  ) => {
+    let newArr: any = [];
+    value.map((element: any) => {
+      if (element.maDiem === markId) {
+        let newElement = { ...element, [key]: updateValue };
+        newArr.push(newElement);
+      } else {
+        newArr.push(element);
+      }
+    });
+    setValue(newArr);
+  };
+
+  const handleOnSubmit = () => {
+    dispatch(updateMultiMarks(value));
+    setIsEdit(false);
   };
   return (
     <ScoreModifyComponent
@@ -120,6 +153,9 @@ const ScoreModifyScreen = () => {
       isEdit={isEdit}
       setIsEdit={setIsEdit}
       handleCancle={handleCancle}
+      handleChangeValue={handleChangeValue}
+      handleOnSubmit={handleOnSubmit}
+      value={value}
     />
   );
 };

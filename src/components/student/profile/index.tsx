@@ -85,7 +85,7 @@ export const ProfileStudentComponent = (props: Iprops) => {
                     <Typography>{userDetail?.maHs}</Typography>
                     <Typography>{userDetail?.hoTen}</Typography>
                     <Typography>
-                      {userDetail?.gioiTinh ? "Nu" : "Nam"}
+                      {userDetail?.gioiTinh ? "Nữ" : "Nam"}
                     </Typography>
                     <Typography>{userDetail?.ngaySinh}</Typography>
                     <Typography>{userDetail?.diaChi}</Typography>
