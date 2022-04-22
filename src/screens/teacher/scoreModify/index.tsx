@@ -32,6 +32,7 @@ const ScoreModifyScreen = () => {
   const [currentClass, setCurrentClass] = useState(
     teacherClassList[0]?.maLop ? teacherClassList[0]?.maLop : ""
   );
+  const [value, setValue] = useState()
   const [isEdit, setIsEdit] = useState(false);
   useEffect(() => {
     if (currentSemester !== "" && currentClass !== "" && currentClass !== "") {

@@ -106,7 +106,7 @@ const Routes = () => {
       )}
       <Route path="/*">
         {userRole === null ? (
-          <Redirect to="/dashboard" />
+          <Redirect to="/signin" />
         ) : (
           <Redirect to={path === null ? "/home" : path} />
         )}
