@@ -57,7 +57,6 @@ const SignInScreen = () => {
       history.push("/dashboard");
     }
   }, [isSuccess]);
-  console.log(value, error, isSuccess);
   return (
     <SignInComponent
       error={error}

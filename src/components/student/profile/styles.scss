@@ -4,7 +4,7 @@
 }
 
 .profileBox{
-    width: 300px;
+    width: 600px;
     height: 400px;
     margin: auto;
 }
@@ -16,6 +16,6 @@
 .profileDetailContainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     text-align: start;
 }

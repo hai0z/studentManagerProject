@@ -22,8 +22,8 @@ import {
 import { useState } from "react";
 import { AppBar, Drawer } from "./style";
 import HomeIcon from "@mui/icons-material/Home";
-import { useHistory, useLocation } from "react-router-dom";
-import { setPath } from "../../../utils/localStorage";
+import { useHistory } from "react-router-dom";
+import { getUserRole, setPath } from "../../../utils/localStorage";
 import { useDispatch } from "react-redux";
 import { signoutSuccess } from "../../../screens/all/signin/redux/signinSlice";
 
@@ -32,13 +32,10 @@ const mdTheme = createTheme();
 export const Navbar = ({ children }: any) => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [tittle, setTittle] = useState("Home");
   const history = useHistory();
-  const location = useLocation();
   const dispatch = useDispatch();
-  const getPageName = () => {
-    let name = location.pathname.substring(1);
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  };
+  const userRole = getUserRole();
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -59,8 +56,9 @@ export const Navbar = ({ children }: any) => {
     history.push("/signin");
     setAnchorEl(null);
   };
-  const handleOnClick = (name: string) => {
+  const handleOnClick = (name: string, tittle: string) => {
     setPath(name);
+    setTittle(tittle);
     history.push(name);
   };
   return (
@@ -92,7 +90,7 @@ export const Navbar = ({ children }: any) => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {getPageName()}
+              {tittle}
             </Typography>
             <div>
               <IconButton
@@ -145,24 +143,137 @@ export const Navbar = ({ children }: any) => {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ListItemButton onClick={() => handleOnClick("/home")}>
-              <ListItemIcon sx={{ color: "white" }}>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText sx={{ color: "white" }} primary="Home" />
-            </ListItemButton>
-            <ListItemButton onClick={() => handleOnClick("/score")}>
-              <ListItemIcon sx={{ color: "white" }}>
-                <GroupIcon />
-              </ListItemIcon>
-              <ListItemText primary="Score" sx={{ color: "white" }} />
-            </ListItemButton>
-            <ListItemButton onClick={() => handleOnClick("/schedule")}>
-              <ListItemIcon sx={{ color: "white" }}>
-                <AccountTreeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Schedule" sx={{ color: "white" }} />
-            </ListItemButton>
+            {userRole === "ROLE_STUDENT" && (
+              <>
+                <ListItemButton onClick={() => handleOnClick("/home", "Home")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Home" />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() => handleOnClick("/score", "Score")}
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Score" sx={{ color: "white" }} />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() => handleOnClick("/schedule", "Schedule")}
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Schedule" sx={{ color: "white" }} />
+                </ListItemButton>
+              </>
+            )}
+            {userRole === "ROLE_TEACHER" && (
+              <>
+                <ListItemButton onClick={() => handleOnClick("/home", "Home")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Home" />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() => handleOnClick("/classList", "Class List")}
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Class List" />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() => handleOnClick("/conduct", "Conduct")}
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Conduct" />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() => handleOnClick("/schedule", "Schedule")}
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Conduct" />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() => handleOnClick("/scoreModify", "Score Modify")}
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ color: "white" }}
+                    primary="Score Modify"
+                  />
+                </ListItemButton>
+              </>
+            )}
+            {userRole === "ROLE_ADMIN" && (
+              <>
+                <ListItemButton onClick={() => handleOnClick("/home", "Home")}>
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: "white" }} primary="Home" />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() =>
+                    handleOnClick("/classManager", "Class Manager")
+                  }
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ color: "white" }}
+                    primary="Class Manager"
+                  />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() =>
+                    handleOnClick("/scheduleManager", "Schedule Manager")
+                  }
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ color: "white" }}
+                    primary="Schedule Manager"
+                  />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() =>
+                    handleOnClick("/scoreManager", "Score Manager")
+                  }
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ color: "white" }}
+                    primary="Score Manager"
+                  />
+                </ListItemButton>
+                <ListItemButton
+                  onClick={() => handleOnClick("/usersManager", "User Manager")}
+                >
+                  <ListItemIcon sx={{ color: "white" }}>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ color: "white" }}
+                    primary="Users Manager"
+                  />
+                </ListItemButton>
+              </>
+            )}
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>

@@ -5,20 +5,30 @@ import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { RootState } from "../app/store";
 import { Navbar } from "../components";
 import {
+  ClassListScreen,
+  ClassManagerScreen,
+  ConductScreen,
   DashBoardScreen,
+  HomeAdminScreen,
   HomeStudentScreen,
+  HomeTeacherScreen,
   PersonalScoreScreen,
   ProfileStudentScreen,
+  ScheduleManagerScreen,
   ScheduleStudentScreen,
+  ScoreManagerScreen,
+  ScoreModifyScreen,
   SignInScreen,
+  TeacherScheduleScreen,
+  UserManagerScreen,
 } from "../screens";
 import { getPath, getUserRole } from "../utils/localStorage";
 
 const Routes = () => {
   const { isSuccess } = useSelector((state: RootState) => state.signin);
-  const [userRole, setUserRole] = useState(getUserRole());
   const [path, setPath] = useState(getPath());
   const location = useLocation();
+  const [userRole, setUserRole] = useState(getUserRole());
   useEffect(() => {
     setUserRole(getUserRole());
     setPath(getPath());
@@ -54,12 +64,44 @@ const Routes = () => {
       )}
       {userRole === "ROLE_TEACHER" && (
         <Switch>
-          <Route path="/home"></Route>
+          <Navbar>
+            <Route path="/home" key="home">
+              <HomeTeacherScreen />
+            </Route>
+            <Route path="/classList" key="classList">
+              <ClassListScreen />
+            </Route>
+            <Route path="/conduct" key="conduct">
+              <ConductScreen />
+            </Route>
+            <Route path="/schedule" key="schedule">
+              <TeacherScheduleScreen />
+            </Route>
+            <Route path="/scoreModify" key="scoreModify">
+              <ScoreModifyScreen />
+            </Route>
+          </Navbar>
         </Switch>
       )}
       {userRole === "ROLE_ADMIN" && (
         <Switch>
-          <Route path="/home"></Route>
+          <Navbar>
+            <Route path="/home" key="home">
+              <HomeAdminScreen />
+            </Route>
+            <Route path="/classManager" key="classManager">
+              <ClassManagerScreen />
+            </Route>
+            <Route path="/scheduleManager" key="scheduleManager">
+              <ScheduleManagerScreen />
+            </Route>
+            <Route path="/scoreManager" key="scoreManager">
+              <ScoreManagerScreen />
+            </Route>
+            <Route path="/usersManager" key="usersManager">
+              <UserManagerScreen />
+            </Route>
+          </Navbar>
         </Switch>
       )}
       <Route path="/*">

@@ -31,10 +31,20 @@ export const SignInComponent = (props: Iprops) => {
       <Box className="signinContainer">
         <Box className="signinLeft">
           <Box>
-            <Typography color="white" fontSize="48px" component="h1">
+            <Typography
+              color="white"
+              fontSize="48px"
+              component="h1"
+              sx={{ textShadow: "2px 2px 10px #6868ac", color: "grey" }}
+            >
               Academy of Raya Lucaria
             </Typography>
-            <Typography color="white" component="h6" fontSize="13px">
+            <Typography
+              color="white"
+              component="h6"
+              fontSize="13px"
+              sx={{ textShadow: "2px 2px 10px #6868ac", color: "grey" }}
+            >
               "In this moment, I am euphoric. Not because of any phony demigod's
               blessing. But because, I am enlightened by my intelligence." -
               Tarnished
