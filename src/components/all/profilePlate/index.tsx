@@ -53,7 +53,7 @@ export const ProfilePlateComponent = () => {
             <Box className="profilePlateDetail">
               <Typography>{userDetail?.maHs}</Typography>
               <Typography>{userDetail?.hoTen}</Typography>
-              <Typography>{userDetail?.gioiTinh ? "Nu" : "Nam"}</Typography>
+              <Typography>{userDetail?.gioiTinh ? "Nữ" : "Nam"}</Typography>
               <Typography>{userDetail?.ngaySinh}</Typography>
               <Typography>{userDetail?.diaChi}</Typography>
               <Typography>{userClass?.tenLop}</Typography>
@@ -76,7 +76,7 @@ export const ProfilePlateComponent = () => {
             <Box className="profilePlateDetail">
               <Typography>{userDetail?.maGiaoVien}</Typography>
               <Typography>{userDetail?.tenGiaoVien}</Typography>
-              <Typography>{userDetail?.gioiTinh ? "Nu" : "Nam"}</Typography>
+              <Typography>{userDetail?.gioiTinh ? "Nữ" : "Nam"}</Typography>
               <Typography>{userDetail?.ngaySinh}</Typography>
               <Typography>{userDetail?.diaChi}</Typography>
               <Typography>{userDetail?.soDienThoai}</Typography>

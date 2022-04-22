@@ -7,7 +7,6 @@ import { RootState } from "../../../app/store";
 import { getUser } from "../../../utils/localStorage";
 import {
   getSemester,
-  getStudentUser,
   getTeacherClassList,
   getTeacherClassStudentMarksList,
   getTeacherUser,
@@ -38,7 +37,11 @@ const HomeTeacherScreen = () => {
     teacherClassList[0]?.maLop ? teacherClassList[0]?.maLop : ""
   );
   useEffect(() => {
-    if (currentSemester !== "" && currentClass !== "" && currentClass !== "") {
+    if (
+      currentSemester !== "" &&
+      currentClass !== "" &&
+      currentSubject !== ""
+    ) {
       dispatch(
         getTeacherClassStudentMarksList({
           subjectId: currentSubject,
@@ -78,47 +81,11 @@ const HomeTeacherScreen = () => {
     return { peroid, mon, tues, wed, thurs, fri, sat, sun };
   };
   const rowsSchedule = [
-    createScheduleData(
-      "01",
-      "Chào cờ",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ),
-    createScheduleData(
-      "02",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ),
-    createScheduleData(
-      "03",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ),
-    createScheduleData(
-      "04",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ),
-    createScheduleData("05", "Tin học", "", "", "", "Văn", "Sinh Hoạt", ""),
+    createScheduleData("01", "Chào cờ", "", "", "", "", "", ""),
+    createScheduleData("02", "", "", "", "", "", "", ""),
+    createScheduleData("03", "", "", "", "", "", "", ""),
+    createScheduleData("04", "", "", "", "", "", "", ""),
+    createScheduleData("05", "", "", "", "", "", "", ""),
     createScheduleData("06", "", "", "", "", "", "", ""),
     createScheduleData("07", "", "", "", "", "", "", ""),
     createScheduleData("08", "", "", "", "", "", "", ""),

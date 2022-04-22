@@ -66,41 +66,58 @@ export const HomeTeacherComponent = (props: Iprops) => {
         </Box>
         <Box className="homeTeacherLeftBottomContainer">
           <Box className="homeTeacherLeftBottomTable">
-            <Box>
-              <Select
-                defaultValue=""
-                value={currentSemester}
-                onChange={onChangeSemester}
-              >
-                {teacherClassList?.map((element, index) => (
-                  <MenuItem key={index} value={element.maHocKi}>
-                    {element.maHocKi}
-                  </MenuItem>
-                ))}
-              </Select>
-              <Select
-                defaultValue=""
-                value={currentClass}
-                onChange={onChangeClass}
-              >
-                {teacherClassList?.map((element, index) => (
-                  <MenuItem key={index} value={element.maLop}>
-                    {element.tenLop}
-                  </MenuItem>
-                ))}
-              </Select>
-              <Select
-                defaultValue=""
-                value={currentSubject}
-                onChange={onChangeSubject}
-              >
-                {teacherClassList?.map((element, index) => (
-                  <MenuItem key={index} value={element.maMonHoc}>
-                    {element.tenMonHoc}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
+          <Box
+        sx={{
+          maxWidth: "470px",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          display: "flex",
+          margin: "auto",
+        }}
+      >
+        <Box>
+          <Select
+            sx={{ width: "150px" }}
+            defaultValue=""
+            value={currentSemester}
+            onChange={onChangeSemester}
+          >
+            {teacherClassList?.map((element, index) => (
+              <MenuItem key={index} value={element.maHocKi}>
+                {element.maHocKi}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+        <Box>
+          <Select
+            sx={{ width: "150px" }}
+            defaultValue=""
+            value={currentClass}
+            onChange={onChangeClass}
+          >
+            {teacherClassList?.map((element, index) => (
+              <MenuItem key={index} value={element.maLop}>
+                {element.tenLop}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+        <Box>
+          <Select
+            sx={{ width: "150px" }}
+            defaultValue=""
+            value={currentSubject}
+            onChange={onChangeSubject}
+          >
+            {teacherClassList?.map((element, index) => (
+              <MenuItem key={index} value={element.maMonHoc}>
+                {element.tenMonHoc}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+      </Box>
             <TableContainer
               component={Paper}
               sx={{

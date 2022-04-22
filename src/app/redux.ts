@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import baseURL from "../api/api";
 import { setUser, setUserRole } from "../utils/localStorage";
+import { useDispatch } from "react-redux";
 
 type defaultStudentSignin = {
   maHs: string;
@@ -47,6 +48,18 @@ export const getSemester = createAsyncThunk("users/getSemester", async () => {
   const respond = await baseURL.get(`api/semester`);
   return respond.data;
 });
+export const updateMultiMarks = createAsyncThunk(
+  "users/updateMultiMarks",
+  async (value: any) => {
+    console.log({
+      markArr: value,
+    });
+    const respond = await baseURL.put(`api/mark/multiMark`, {
+      markArr: value,
+    });
+    return respond.data;
+  }
+);
 //student
 export const getStudentSignin = createAsyncThunk(
   "users/getStudentSignin",
@@ -177,6 +190,22 @@ export const reduxSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //other
+    builder
+      .addCase(getSemester.fulfilled, (state, action) => {
+        state.semester = action.payload;
+        toast.success("Get semester success", { autoClose: 2000 });
+      })
+      .addCase(getSemester.rejected, (state) => {
+        state.semester = [];
+        toast.error("Get semester fail", { autoClose: 2000 });
+      })
+      .addCase(updateMultiMarks.fulfilled, (state, action) => {
+        toast.success("Update marks success", { autoClose: 2000 });
+      })
+      .addCase(updateMultiMarks.rejected, (state) => {
+        toast.error("Update marks fail", { autoClose: 2000 });
+      });
     //student
     builder
       .addCase(getStudentSignin.fulfilled, (state, action) => {
@@ -231,15 +260,8 @@ export const reduxSlice = createSlice({
       .addCase(getStudentFullMarks.rejected, (state) => {
         state.studentFullMark = [];
         toast.error("Get marks fail", { autoClose: 2000 });
-      })
-      .addCase(getSemester.fulfilled, (state, action) => {
-        state.semester = action.payload;
-        toast.success("Get semester success", { autoClose: 2000 });
-      })
-      .addCase(getSemester.rejected, (state) => {
-        state.semester = [];
-        toast.error("Get semester fail", { autoClose: 2000 });
       });
+
     //teacher
     builder
       .addCase(getTeacherSignin.fulfilled, (state, action) => {
