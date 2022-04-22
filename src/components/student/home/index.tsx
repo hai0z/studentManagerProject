@@ -20,7 +20,7 @@ type Iprops = {
     avgScore: number;
   }[];
   currentSemester: string;
-  studentSemester: {
+  semester: {
     maHocKi: string;
     hocKi: number;
     namHoc: string;
@@ -39,17 +39,17 @@ type Iprops = {
 };
 
 export const HomeStudentComponent = (props: Iprops) => {
-  const { rows, currentSemester, studentSemester, onChange, rowsSchedule } =
+  const { rows, currentSemester, semester, onChange, rowsSchedule } =
     props;
 
   return (
-    <Box className="homeContainer">
-      <Box className="homeLeftContainer">
-        <Box className="homeLeftTopContainer">
+    <Box className="homeStudentContainer">
+      <Box className="homeStudentLeftContainer">
+        <Box className="homeStudentLeftTopContainer">
           <ProfilePlateComponent />
         </Box>
-        <Box className="homeLeftBottomContainer">
-          <Box className="homeLeftBottomTable">
+        <Box className="homeStudentLeftBottomContainer">
+          <Box className="homeStudentLeftBottomTable">
             <Box>
               <Select
                 fullWidth
@@ -59,7 +59,7 @@ export const HomeStudentComponent = (props: Iprops) => {
                 label="Age"
                 onChange={onChange}
               >
-                {studentSemester.map((element, index) => (
+                {semester.map((element, index) => (
                   <MenuItem key={index} value={element.maHocKi}>
                     {element.maHocKi}
                   </MenuItem>
@@ -105,7 +105,7 @@ export const HomeStudentComponent = (props: Iprops) => {
           </Box>
         </Box>
       </Box>
-      <Box className="homeRightContainer">
+      <Box className="homeStudentRightContainer">
         <TableContainer
           component={Paper}
           sx={{

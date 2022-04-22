@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { getAdminSignin, getStudentSignin, getTeacherSignin } from "../../../app/redux";
 import { RootState } from "../../../app/store";
 import { SignInComponent } from "../../../components";
 import { users } from "../../../utils/constants";
 import { setPath, setUser, setUserRole } from "../../../utils/localStorage";
-import {
-  getAdminSignin,
-  getStudentSignin,
-  getTeacherSignin,
-} from "./redux/signinSlice";
+
 
 const DEFAULT_VALUE = {
   maHs: "",
@@ -21,7 +18,7 @@ const SignInScreen = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { error, isSuccess } = useSelector((state: RootState) => state.signin);
+  const { error, isSuccess } = useSelector((state: RootState) => state.redux);
   const [value, setValue] = useState(DEFAULT_VALUE);
   const [page, setPage] = useState("1");
 

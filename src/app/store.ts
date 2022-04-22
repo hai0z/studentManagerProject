@@ -1,14 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import signinReducer from "../screens/all/signin/redux/signinSlice";
-import profileReducer from "../screens/all/profile/redux/profileSlice";
-import homeStudentReducer from "../screens/student/home/redux/homeStudentSlice";
-import personalScoreReducer from "../screens/student/personalScore/redux/personalScoreSlice"
+import reduxReducer from "./redux"
 export const store = configureStore({
   reducer: {
-    signin: signinReducer,
-    profile: profileReducer,
-    homeStudent: homeStudentReducer,
-    personalScore: personalScoreReducer
+    redux: reduxReducer,
+
   },
 });
 export type AppDispatch = typeof store.dispatch;

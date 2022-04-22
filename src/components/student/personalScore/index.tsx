@@ -25,7 +25,7 @@ type Iprops = {
     trungBinhMon: number;
   }[];
   currentSemester: string;
-  studentSemester: {
+  semester: {
     maHocKi: string;
     hocKi: number;
     namHoc: string;
@@ -34,7 +34,7 @@ type Iprops = {
 };
 
 export const PersonalScoreComponent = (props: Iprops) => {
-  const { rows, currentSemester, studentSemester, onChange } = props;
+  const { rows, currentSemester, semester, onChange } = props;
   return (
     <Box>
       <Box sx={{ textAlign: "start", marginBottom: "10px" }}>
@@ -45,7 +45,7 @@ export const PersonalScoreComponent = (props: Iprops) => {
           label="Age"
           onChange={onChange}
         >
-          {studentSemester.map((element, index) => (
+          {semester.map((element, index) => (
             <MenuItem key={index} value={element.maHocKi}>
               {element.maHocKi}
             </MenuItem>
@@ -111,7 +111,7 @@ export const PersonalScoreComponent = (props: Iprops) => {
                   borderTop: "1px solid rgba(224, 224, 224, 1)",
                 }}
               >
-                Details
+                Total
               </TableCell>
             </TableRow>
             <TableRow></TableRow>

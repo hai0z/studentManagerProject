@@ -25,7 +25,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { useHistory } from "react-router-dom";
 import { getUserRole, setPath } from "../../../utils/localStorage";
 import { useDispatch } from "react-redux";
-import { signoutSuccess } from "../../../screens/all/signin/redux/signinSlice";
+import { signoutSuccess } from "../../../app/redux";
 
 const mdTheme = createTheme();
 

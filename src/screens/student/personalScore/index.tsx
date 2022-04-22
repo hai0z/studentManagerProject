@@ -1,24 +1,21 @@
 import { SelectChangeEvent } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getSemester, getStudentFullMarks } from "../../../app/redux";
 import { RootState } from "../../../app/store";
 import { PersonalScoreComponent } from "../../../components";
 import { getUser } from "../../../utils/localStorage";
-import {
-  getStudentFullMarks,
-  getStudentSemester,
-} from "./redux/personalScoreSlice";
+
 
 const PersonalScoreScreen = () => {
-  const { studentFullMark, studentSemester } = useSelector(
-    (state: RootState) => state.personalScore
+  const { studentFullMark, semester, studentMark } = useSelector(
+    (state: RootState) => state.redux
   );
-  const { studentMark } = useSelector((state: RootState) => state.homeStudent);
   const dispatch = useDispatch();
   const userId = getUser();
   const [currentSemester, setCurrentSemester] = useState("1(2021-2022)");
   useEffect(() => {
-    dispatch(getStudentSemester());
+    dispatch(getSemester());
   }, []);
   useEffect(() => {
     dispatch(
@@ -39,18 +36,7 @@ const PersonalScoreScreen = () => {
     diemHeSo2_3: number,
     diemHeSo3: number,
     trungBinhMon: number
-  ): {
-    name: string;
-    diemHeSo1: number;
-    diemHeSo1_2: number;
-    diemHeSo1_3: number;
-    diemHeSo1_4: number;
-    diemHeSo2: number;
-    diemHeSo2_2: number;
-    diemHeSo2_3: number;
-    diemHeSo3: number;
-    trungBinhMon: number;
-  } => {
+  ) => {
     return {
       name,
       diemHeSo1,
@@ -100,7 +86,7 @@ const PersonalScoreScreen = () => {
       onChange={onChange}
       rows={rows}
       currentSemester={currentSemester}
-      studentSemester={studentSemester}
+      semester={semester}
     />
   );
 };
