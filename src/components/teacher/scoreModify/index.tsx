@@ -95,7 +95,6 @@ export const ScoreModifyComponent = (props: Iprops) => {
                         t.maHocKi === value.maHocKi
                 )
         );
-    console.log(classList);
     return (
         <Box>
             <Box
@@ -147,8 +146,8 @@ export const ScoreModifyComponent = (props: Iprops) => {
                     >
                         {teacherClassList?.map(
                             (element, index) =>
-                                element.maLop == currentClass &&
-                                element.maHocKi == currentSemester && (
+                                element.maLop === currentClass &&
+                                element.maHocKi === currentSemester && (
                                     <MenuItem
                                         key={index}
                                         value={element.maMonHoc}
@@ -161,7 +160,7 @@ export const ScoreModifyComponent = (props: Iprops) => {
                 </Box>
             </Box>
             <Box>
-                {isEdit == false && (
+                {isEdit === false && (
                     <Button
                         sx={{
                             margin: "5px",
